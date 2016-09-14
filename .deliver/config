@@ -1,0 +1,19 @@
+APP="trainbot"
+
+BUILD_HOST="prod"
+BUILD_USER="laibulle"
+BUILD_AT="/tmp/edeliver/builds"
+
+STAGING_HOSTS="prod"
+STAGING_USER="laibulle"
+DELIVER_TO="/home/laibulle"
+
+# For *Phoenix* projects, symlink prod.secret.exs to our tmp source
+pre_erlang_get_and_update_deps() {
+  local _prod_secret_path="/home/laibulle/trainbot/shared/config.exs"
+  if [ "$TARGET_MIX_ENV" = "prod" ]; then
+    __sync_remote "
+      ln -sfn '$_prod_secret_path' '$BUILD_AT/config/config.exs'
+    "
+  fi
+}
