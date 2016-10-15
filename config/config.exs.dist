@@ -9,7 +9,7 @@ config :trainbot, Trainbot.Repo,
   database: "trainbot",
   username: "postgres",
   password: "",
-  hostname: "localhost",
+  hostname: "localhost"
 
 config :trainbot,
   ecto_repos: [Trainbot.Repo]
