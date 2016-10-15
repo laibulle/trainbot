@@ -18,7 +18,6 @@ defmodule Trainbot.SNCF do
   end
 
   defp get_result(url) do
-    IO.puts @api_key
     %HTTPoison.Response{status_code: 200, body: body} = HTTPoison.get!(url, %{}, [hackney: [basic_auth: {@api_key, ""}]])
     Poison.decode!(body)
   end

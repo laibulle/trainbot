@@ -4,3 +4,5 @@ deploy:
 	mix edeliver migrate
 	mix edeliver start staging
 
+update:
+	mix edeliver update staging --branch=master --start-deploy

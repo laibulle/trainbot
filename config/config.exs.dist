@@ -1,0 +1,15 @@
+use Mix.Config
+
+config :trainbot, Trainbot.Slack,
+   token: "myslacktoken",
+   sncf_key: "mysncftoken"
+
+config :trainbot, Trainbot.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  database: "trainbot",
+  username: "postgres",
+  password: "",
+  hostname: "localhost",
+
+config :trainbot,
+  ecto_repos: [Trainbot.Repo]

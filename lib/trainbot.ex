@@ -6,12 +6,11 @@ defmodule Trainbot do
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
     slack_token = Application.get_env(:trainbot, Trainbot.Slack)[:token]
-    IO.puts slack_token
     # Define workers and child supervisors to be supervised
     children = [
       # Starts a worker by calling: Trainbot.Worker.start_link(arg1, arg2, arg3)
       worker(Trainbot.Repo, []),
-      worker(Trainbot.Slack, [slack_token, :whatever]),
+      worker(Trainbot.Slack, [slack_token]),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

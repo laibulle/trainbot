@@ -28,7 +28,7 @@ defmodule Trainbot.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:slack, "~> 0.6.0"},
+    [{:slack, "~> 0.7.1"},
      {:poison, "~> 2.2"},
      {:timex, "~> 3.0"},
      {:ecto, "~> 2.0"},

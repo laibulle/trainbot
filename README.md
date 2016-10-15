@@ -2,7 +2,7 @@
 
 Trainbot is a Slackbot which check train journey against SNCF API.
 
-## Getting started 
+## Getting started
 
     cp config/secret.exs.dist config/secret.exs
     mix deps.get
@@ -11,21 +11,27 @@ Trainbot is a Slackbot which check train journey against SNCF API.
 
 ## Commands
 
-Save a journey
+__Save a journey__
 
-    @trainbot enregistre "travail" "admin%3A68000extern" "admin%3A58404extern"
-
-
-
-List all my journeys
+    Enregistre le trajet <nom du trajet> de <gare de départ> à <gare d'arrivée>.
 
 
-    @trainbot list
+    Enregistre le trajet travail de admin%3A68000extern à admin%3A58404extern.
+    Enregistre le trajet maison de admin%3A58404extern à admin%3A68000extern.
 
 
+__List all my journeys__
 
-Get journey for a trip
+
+    Liste mes trajets.
+
+__Get journey for a trip__
 
 
-    @trainbot travail
+    Horaires pour <nom du trajet>.
 
+
+__Delete a journey__
+
+
+	Supprime le trajet <nom du trajet>.
