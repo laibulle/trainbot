@@ -1,4 +1,11 @@
 defmodule Trainbot.Answer do
+  def journey_already_exists() do
+    list = [
+      "Ce trajet existe déjà."
+    ]
+    Enum.random(list)
+  end
+
   def get_unknow_journey() do
     list = [
     	"Je ne connais pas ce trajet.",

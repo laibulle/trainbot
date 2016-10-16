@@ -4,14 +4,26 @@ defmodule Trainbot.JourneyManager do
   use Application
   import Ecto.Query
 
+  alias Trainbot.Journey
+  alias Trainbot.Repo
+
   @tz "Europe/Paris"
   @dateformat "%Y%m%dT%H%M%S"
   @export_format "%kh%M"
   @api_key Application.get_env(:trainbot, Trainbot.Slack)[:sncf_key]
 
   def save(slack_id, team, name, from, to) do
-    journey = %Trainbot.Journey{:slack_id => slack_id, :team => team, :name => name, :from => from, :to => to}
-    Trainbot.Repo.insert(journey)
+    changeset = Journey.changeset(
+      %Journey{},
+      %{:slack_id => slack_id, :team => team, :name => name, :from => from, :to => to}
+    )
+    
+    case Repo.insert(changeset) do
+      {:error, error} ->
+        IO.puts 'blablhlrenfjenflerjnfkl'
+        {:error, error}
+      trainbot -> trainbot
+    end
   end
 
   def list(slack_id, team) do
@@ -47,7 +59,7 @@ defmodule Trainbot.JourneyManager do
     arrival = Timex.parse!(journey["arrival_date_time"], @dateformat, :strftime)
 
     txt <>
-    "\n Départ à " <> Timex.format!(departure, @export_format, :strftime) <> 
+    "\n Départ à " <> Timex.format!(departure, @export_format, :strftime) <>
     " arrivée à " <>
     Timex.format!(arrival, @export_format, :strftime)
   end

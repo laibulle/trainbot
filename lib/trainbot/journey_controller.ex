@@ -4,8 +4,10 @@ defmodule Trainbot.JourneyController do
   def handle_register(message, slack) do
     case parse_register(message.text) do
       {:ok, data} ->
-        Trainbot.JourneyManager.save(message.user, "", data.name, data.from, data.to)
-        send_message(Trainbot.Answer.get_done(), message.channel, slack)
+        case Trainbot.JourneyManager.save(message.user, "", data.name, data.from, data.to) do
+          {:error, _} -> send_message(Trainbot.Answer.journey_already_exists(), message.channel, slack)
+          {:ok, _} -> send_message(Trainbot.Answer.get_done(), message.channel, slack)
+        end
       {:error, data} ->  {:ok, %{}}
     end
 
