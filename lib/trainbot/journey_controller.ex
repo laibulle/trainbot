@@ -15,7 +15,7 @@ defmodule Trainbot.JourneyController do
   end
 
   def handle_delete(message, slack) do
-    case parse_list(message.text) do
+    case parse_delete(message.text) do
       {:ok, data} ->
         Trainbot.JourneyManager.delete(message.user, "", "")
         send_message(Trainbot.Answer.get_done(), message.channel, slack)
@@ -26,7 +26,7 @@ defmodule Trainbot.JourneyController do
   end
 
   def handle_list(message, slack) do
-    case parse_delete(message.text) do
+    case parse_list(message.text) do
       {:ok, data} ->
         journeys = Trainbot.JourneyManager.list(message.user, "")
         send_message(Trainbot.JourneyManager.format_list(journeys, "Voici la liste de tes trajets:"), message.channel, slack)
