@@ -15,27 +15,25 @@ defmodule Trainbot.JourneyManager do
   def save(slack_id, team, name, from, to) do
     changeset = Journey.changeset(
       %Journey{},
-      %{:slack_id => slack_id, :team => team, :name => name, :from => from, :to => to}
+      %{:slack_id => slack_id, :team => "", :name => name, :from => from, :to => to}
     )
-    
+
     case Repo.insert(changeset) do
-      {:error, error} ->
-        IO.puts 'blablhlrenfjenflerjnfkl'
-        {:error, error}
+      {:error, error} -> {:error, error}
       trainbot -> trainbot
     end
   end
 
   def list(slack_id, team) do
-    Ecto.Query.from(j in Trainbot.Journey, where: j.slack_id == ^slack_id and j.team == ^team) |> Trainbot.Repo.all
+    Ecto.Query.from(j in Trainbot.Journey, where: j.slack_id == ^slack_id) |> Trainbot.Repo.all
   end
 
   def find_one_by_name(slack_id, team, name) do
-    Ecto.Query.from(j in Trainbot.Journey, where: j.slack_id == ^slack_id and j.team == ^team and j.name == ^name) |> Trainbot.Repo.one
+    Ecto.Query.from(j in Trainbot.Journey, where: j.slack_id == ^slack_id and j.name == ^name) |> Trainbot.Repo.one
   end
 
-  def format_list([head | _tail], message) do
-    message <> "\n#{head.name} de #{head.from} à #{head.to}"
+  def format_list([head | tail], message) do
+    format_list(tail, message <> "\n#{head.name} de #{head.from} à #{head.to}")
   end
 
   def format_list([], message) do

@@ -13,6 +13,9 @@ defmodule Trainbot.Slack do
         String.match?(input, ~r/supprime/i)   -> Trainbot.JourneyController.handle_delete(message, slack)
         String.match?(input, ~r/liste/i)      -> Trainbot.JourneyController.handle_list(message, slack)
         String.match?(input, ~r/horaire/i)    -> Trainbot.JourneyController.handle_schedule(message, slack)
+        true ->
+          #IO.puts message.text
+          #send_message(Trainbot.Answer.get_do_not_understand(), message.channel, slack)
       end
   end
 

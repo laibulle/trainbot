@@ -3,7 +3,6 @@ defmodule Trainbot.Journey do
   import Ecto.Changeset
 
   schema "journey" do
-    field :team, :string
     field :slack_id, :string
     field :name, :string
     field :from, :string
@@ -14,7 +13,8 @@ defmodule Trainbot.Journey do
 
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, [:team, :slack_id, :name, :from, :from_name, :to, :to_name])
-    |> unique_constraint(:journey_slack_id_team_name_index)
+    |> cast(params, [:slack_id, :name, :from, :from_name, :to, :to_name])
+    |> validate_required([:slack_id, :name, :from, :to])
+    |> unique_constraint(:slack_id_name)
   end
 end
